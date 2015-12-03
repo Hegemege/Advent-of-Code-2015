@@ -29,6 +29,33 @@ def main():
 
     print len(grid)
 
+    #Part 2
+
+    grid = {}
+    x = [0, 0]
+    y = [0, 0]
+    grid[(0, 0)] = 2
+
+    for i in xrange(len(data)):
+        symbol = data[i]
+        index = i % 2
+        if symbol == '<':
+            x[index] -= 1
+        elif symbol == '>':
+            x[index] += 1
+        elif symbol == '^':
+            y[index] -= 1
+        elif symbol == 'v':
+            y[index] += 1
+
+        if (x[index], y[index]) not in grid:
+            grid[(x[index], y[index])] = 1
+        else:
+            grid[(x[index], y[index])] += 1
+
+    print len(grid)
+
+
 
 if __name__ == '__main__':
     main()
