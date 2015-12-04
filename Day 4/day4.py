@@ -14,5 +14,20 @@ def main():
 
     print index
 
+
+    # Part 2
+
+    index = 1
+
+    while(True):
+        d = hashlib.md5()
+        d.update(data + str(index))
+        if (d.hexdigest()[:6] == "000000"):
+            break
+        index += 1
+
+    print index
+
+
 if __name__ == '__main__':
     main()
