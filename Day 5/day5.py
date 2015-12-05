@@ -18,6 +18,18 @@ def main():
 
     print nice
 
+    #Part 2
+
+    nice = 0
+
+    p1 = re.compile('.*([a-z][a-z])[a-z]*\\1.*')
+    p2 = re.compile('.*([a-z])[a-z]\\1.*')
+
+    for line in data:
+        nice += (p1.match(line) is not None) and (p2.match(line) is not None)
+
+    print nice
+
 
 if __name__ == '__main__':
     main()
