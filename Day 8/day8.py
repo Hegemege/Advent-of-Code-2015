@@ -10,13 +10,23 @@ def main():
     totalSymbols = sum(map(len, data))
  
     f = open("in_fixed.txt", "r")
-    data = f.readlines()[0]
+    data2 = f.readlines()[0]
     f.close()
 
-    realSymbols = len(data)
+    realSymbols = len(data2)
 
     print totalSymbols - realSymbols
 
+
+    #Part 2
+    #reuse data
+    data = [x.replace("\\", "\\\\") for x in data]
+    data = [x.replace('\"', '\\\"') for x in data]
+    data = ["\"" + x + "\"" for x in data]
+
+    encodeSymbols = sum(map(len, data))
+
+    print encodeSymbols - totalSymbols
 
 if __name__ == '__main__':
     main()
