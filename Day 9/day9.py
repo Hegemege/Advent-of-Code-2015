@@ -25,7 +25,7 @@ def main():
 
     for key, value in cities.iteritems(): #start from any city
         shortest = [99999]
-        traverseFrom(cities, key, [key], [], shortest)
+        traverseFrom(cities, key, [key], 0, shortest)
         print key, shortest
 
     # Part 2
@@ -34,7 +34,7 @@ def main():
 
     for key, value in cities.iteritems():
         longest = [0]
-        traverseFromLong(cities, key, [key], [], longest)
+        traverseFromLong(cities, key, [key], 0, longest)
         print key, longest
 
 
@@ -42,21 +42,21 @@ def traverseFrom(cities, cityname, visited, s, shortest):
     for key, value in cities[cityname].iteritems():
         if key in visited:
             continue
-        traverseFrom(cities, key, visited + [key], s + [value], shortest)
+        traverseFrom(cities, key, visited + [key], s + value, shortest)
 
     if len(visited) == len(cities):
-        if sum(s) < shortest[0]:
-            shortest[0] = sum(s)
+        if s < shortest[0]:
+            shortest[0] = s
 
 def traverseFromLong(cities, cityname, visited, s, longest):
     for key, value in cities[cityname].iteritems():
         if key in visited:
             continue
-        traverseFromLong(cities, key, visited + [key], s + [value], longest)
+        traverseFromLong(cities, key, visited + [key], s + value, longest)
 
     if len(visited) == len(cities):
-        if sum(s) > longest[0]:
-            longest[0] = sum(s)
+        if s > longest[0]:
+            longest[0] = s
 
 if __name__ == '__main__':
     main()
