@@ -7,14 +7,23 @@ def main():
     while not isValid(data):
         increment(data)
 
-    print ''.join(letterify(data))
+    data =  ''.join(letterify(data))
+    print data
+
+    # Part 2
+
+    data = numerify(data)
+    increment(data)
+
+    while not isValid(data):
+        increment(data)
+
+    data =  ''.join(letterify(data))
+    print data
 
 def isValid(data):
     straight = False
     for number in [0, 1, 2, 3, 4, 5, 6, 7]:
-        if data[number] == 8 or data[number] == 11 or data[number] == 14:
-            return False #banned letter
-
         if number < 6:
             if data[number+1] == data[number]+1 and data[number+2] == data[number+1]+1:
                 straight = True
@@ -34,6 +43,10 @@ def increment(data):
         if data[item] > 25:
             data[item - 1] += 1
             data[item] = 0
+        if data[item] == 8 or data[item] == 11 or data[item] == 14:
+            data[item] += 1
+            for i in xrange(8 - item - 1):
+                data[item + 1 + i] = 0
 
 
 def numerify(data):
