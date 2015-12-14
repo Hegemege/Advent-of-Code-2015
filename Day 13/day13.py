@@ -21,8 +21,23 @@ def main():
     left = list(names)
 
     highest = [-99999]
+    starter = pref.iterkeys().next()
+    arrange(starter, [starter], left + [], pref, highest)
+
+    print highest
+
+
+    #Part 2
+
     for key, value in pref.iteritems():
-        arrange(key, [key], left + [], pref, highest)
+        value["Me"] = 0
+
+    pref["Me"] = { name : 0 for name in left }
+
+    left.append("Me")
+    highest = [-99999]
+    starter = pref.iterkeys().next()
+    arrange(starter, [starter], left + [], pref, highest)
 
     print highest
 
