@@ -20,15 +20,30 @@ def main():
 
     left = list(names)
 
-    #try starting seating from everyone
+    highest = [-99999]
     for key, value in pref.iteritems():
-        smallest = [999999]
-        arrange(key, left + [], pref, smallest)
+        arrange(key, [key], left + [], pref, highest)
+
+    print highest
 
 
-def arrange(cur, left, pref, smallest):
-    for name in xrange(len(left)):
-        pass
+def arrange(cur, builder, left, pref, highest):
+    curindex = left.index(cur)
+    templeft = left[:curindex] + left[curindex+1:]
+    if len(templeft) > 0:
+        for name in xrange(len(templeft)):
+            arrange(templeft[name], builder + [templeft[name]], templeft, pref, highest)
+    else:
+        total = 0
+        for i in xrange(len(builder)):
+            thisname = builder[i]
+            prevname = builder[i-1]
+            nextname = builder[(i+1)%len(builder)]
+
+            total += pref[thisname][prevname]
+            total += pref[thisname][nextname]
+        if total > highest[0]:
+            highest[0] = total
 
 
 if __name__ == '__main__':
