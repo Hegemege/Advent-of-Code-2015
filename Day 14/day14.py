@@ -15,14 +15,34 @@ def main():
         flytime = int(parts[6])
         resttime = int(parts[13])
         distance = 0
+        distanceAt = []
         status = True
 
-        reindeer[name] = [status, speed, flytime, resttime, distance]
+        reindeer[name] = [status, speed, flytime, resttime, distance, distanceAt]
 
     for key, value in reindeer.iteritems():
         fly(value, finish)
 
     print max([value[4] for key, value in reindeer.iteritems()])
+
+    #Part 2
+
+    points = { key : 0 for key, value in reindeer.iteritems() }
+    for second in xrange(finish):
+        tops = []
+        for key, value in reindeer.iteritems():
+            if len(tops) == 0:
+                tops = [key]
+            else:
+                if reindeer[tops[0]][5][second] < reindeer[key][5][second]:
+                    tops = [key]
+                elif reindeer[tops[0]][5][second] == reindeer[key][5][second]:
+                    tops.append(key)
+
+        for top in tops:
+            points[top] += 1
+
+    print max([value for key, value in points.iteritems()])
 
 def fly(data, time):
     counter = data[2]
@@ -39,6 +59,8 @@ def fly(data, time):
             if (counter == 0):
                 counter = data[2]
                 data[0] = True
+
+        data[5].append(data[4])
         
 
 if __name__ == '__main__':
