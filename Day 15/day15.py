@@ -37,6 +37,10 @@ def main():
                 if len(filter(lambda x: x <= 0, sums)) > 0:
                     continue
 
+                # Part 2
+                if sums[-1] != 500:
+                    continue
+
                 score = functools.reduce(operator.mul, sums[:-1], 1)
                 if score > maxscore:
                     maxscore = score
