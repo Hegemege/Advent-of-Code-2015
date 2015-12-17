@@ -15,6 +15,9 @@ def main():
                 "cars" : 2,
                 "perfumes" : 1 }
 
+    greaterThan = ["cats", "trees"]
+    lesserThan = ["pomeranians", "goldfish"]
+
     data = [x.replace("\n", "") for x in data]
 
     sues = []
@@ -30,7 +33,23 @@ def main():
                 count += 1
         if count >= 3:
             print index
-            return
+
+    index = 0
+    for sue in sues:
+        index += 1
+        count = 0
+        for item, value in message.iteritems():
+            if item not in greaterThan and item not in lesserThan:
+                if sue.features[item] == value:
+                    count += 1
+            elif item in greaterThan:
+                if sue.features[item] > value:
+                    count += 1
+            elif item in lesserThan:
+                if sue.features[item] < value and sue.features[item] != -1:
+                    count += 1
+        if count >= 3:
+            print index
 
 
 class Sue(object):
