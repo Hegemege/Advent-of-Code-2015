@@ -11,6 +11,12 @@ def main():
     for line in data:
         grid.append([True if x == "#" else False for x in line])
 
+    # Part 2
+    grid[0][0] = True
+    grid[0][99] = True
+    grid[99][0] = True
+    grid[99][99] = True
+
     for i in xrange(100):
         grid = newState(grid)
 
@@ -21,6 +27,9 @@ def newState(old):
 
     for x in xrange(len(old)):
         for y in xrange(len(old[x])):
+            if (x == 0 and y == 0) or (x == 0 and y == 99) or (x == 99 and y == 0) or (x == 99 and y == 99):
+                new[x][y] = True
+                continue
             neighbors = getNeighborSum(old, x, y)
             if old[x][y]:
                 if neighbors == 2 or neighbors == 3:
