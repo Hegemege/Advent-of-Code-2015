@@ -8,34 +8,38 @@ def main():
     data = [x.replace("\n", "") for x in data]
 
     compound = [x for x in re.split("([A-Z][a-z]?)", data[-1]) if x != '']
+    compoundstr = ''.join(compound)
     
-    transformations = { }
+    transformations = [ ]
 
     for line in data:
         if line == "":
             break
 
         parts = line.split(" => ")
-        transformations[parts[0]] = parts[1]
+        transformations.append([parts[0], parts[1]])
 
     results = set()
 
-    for old, replace in transformations.iteritems():
-        copycompound = compound + []
-
+    for transform in transformations:
+        old = transform[0]
+        replace = transform[1]
         # Find all combinations of 1 to N of how the compound can be mutated, where N is the count of <old> in compound
         # Replace each
         # Add to results if not there in reverse
+        i = compound.count(old)
+        indices = []
+        for index, item in enumerate(compound):
+            if item == old:
+                indices.append(index)
+        for index in indices:
+            copycompound = compound + []
+            copycompound[index] = replace
+            copycompound = ''.join(copycompound)
+            results.add(copycompound)
 
-        # Pseudocode
-        # i = how many times <old> is in compound
-        # indices = list of indices for each occurrence
-        # for k in xrange(i):
-        # for c in itertools.combinations(indices, i):
-
-
+    # Make sure compound itself is not in results
     print len(results)
-
 
 if __name__ == '__main__':
     main()
